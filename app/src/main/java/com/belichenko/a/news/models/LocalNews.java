@@ -2,6 +2,7 @@ package com.belichenko.a.news.models;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.text.TextUtils;
 
@@ -27,6 +28,7 @@ public class LocalNews {
     public LocalNews() {
     }
 
+    @Ignore
     public LocalNews(int id, String title, String type, String content) {
         this.id = id;
         this.title = title;
@@ -34,6 +36,7 @@ public class LocalNews {
         this.content = content;
     }
 
+    @Ignore
     public LocalNews(News news) {
         this.id = news.getId();
         this.title = news.getTitle();

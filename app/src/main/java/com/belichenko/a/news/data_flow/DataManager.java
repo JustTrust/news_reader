@@ -6,4 +6,5 @@ package com.belichenko.a.news.data_flow;
  */
 
 public interface DataManager {
+    void getNewsFromServer();
 }

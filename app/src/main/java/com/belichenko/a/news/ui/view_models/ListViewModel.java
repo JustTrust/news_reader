@@ -25,17 +25,19 @@ public class ListViewModel extends ViewModel {
 
     public ListViewModel() {
         NewsApplication.getAppComponent().inject(this);
+        dataManager.getNewsFromServer();
     }
 
     public LiveData<List<LocalNews>> getNewsList() {
         if (newsList == null) {
             newsList = new MutableLiveData<>();
-            loadUsers();
+            loadNews();
         }
         return newsList;
     }
 
-    private void loadUsers() {
+    private void loadNews() {
+
 
     }
 

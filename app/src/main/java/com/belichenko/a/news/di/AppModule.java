@@ -4,9 +4,11 @@ import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.belichenko.a.news.data_flow.SeverApi;
+import com.belichenko.a.news.data_flow.Server;
+import com.belichenko.a.news.data_flow.ServerApi;
 import com.belichenko.a.news.data_flow.DataManager;
 import com.belichenko.a.news.data_flow.NewsDataManager;
+import com.belichenko.a.news.utils.NewsGenerator;
 
 import javax.inject.Singleton;
 
@@ -38,13 +40,13 @@ public class AppModule {
 
     @Provides
     @Singleton
-    DataManager provideDataManager(Context context){
-        return new NewsDataManager();
+    DataManager provideDataManager(Server server){
+        return new NewsDataManager(server);
     }
 
     @Provides
     @Singleton
-    SeverApi provideAPI(){
-        return new SeverApi();
+    Server provideAPI(){
+        return new ServerApi(new NewsGenerator());
     }
 }
