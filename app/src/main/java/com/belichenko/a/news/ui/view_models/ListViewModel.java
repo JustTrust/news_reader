@@ -12,6 +12,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+
 /**
  * Created by a.belichenko on 15.06.2017.
  * mail: a.belichenko@gmail.com
@@ -19,9 +23,11 @@ import javax.inject.Inject;
 
 public class ListViewModel extends ViewModel {
 
+    private final CompositeDisposable disposables = new CompositeDisposable();
     @Inject
     DataManager dataManager;
     private MutableLiveData<List<LocalNews>> newsList;
+    private MutableLiveData<String> error;
 
     public ListViewModel() {
         NewsApplication.getAppComponent().inject(this);
@@ -36,14 +42,24 @@ public class ListViewModel extends ViewModel {
         return newsList;
     }
 
+    public LiveData<String> getErrors() {
+        if (error == null) {
+            error = new MutableLiveData<>();
+        }
+        return error;
+    }
+
     private void loadNews() {
-
-
+        disposables.add(dataManager.loadNewsList()
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(localNews -> newsList.postValue(localNews),
+                        throwable -> error.postValue(throwable.getMessage())));
     }
 
     @Override
     protected void onCleared() {
         super.onCleared();
-
+        disposables.clear();
     }
 }

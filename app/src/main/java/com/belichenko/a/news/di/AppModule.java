@@ -1,6 +1,7 @@
 package com.belichenko.a.news.di;
 
 import android.app.Application;
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
@@ -8,6 +9,7 @@ import com.belichenko.a.news.data_flow.Server;
 import com.belichenko.a.news.data_flow.ServerApi;
 import com.belichenko.a.news.data_flow.DataManager;
 import com.belichenko.a.news.data_flow.NewsDataManager;
+import com.belichenko.a.news.data_flow.data_base.NewsDatabase;
 import com.belichenko.a.news.utils.NewsGenerator;
 
 import javax.inject.Singleton;
@@ -40,13 +42,20 @@ public class AppModule {
 
     @Provides
     @Singleton
-    DataManager provideDataManager(Server server){
-        return new NewsDataManager(server);
+    Server provideAPI(){
+        return new ServerApi(new NewsGenerator());
     }
 
     @Provides
     @Singleton
-    Server provideAPI(){
-        return new ServerApi(new NewsGenerator());
+    NewsDatabase provideDatabase(){
+        return Room.databaseBuilder(mApplication, NewsDatabase.class, "news_db").build();
     }
+
+    @Provides
+    @Singleton
+    DataManager provideDataManager(Server server, NewsDatabase database){
+        return new NewsDataManager(server, database);
+    }
+
 }

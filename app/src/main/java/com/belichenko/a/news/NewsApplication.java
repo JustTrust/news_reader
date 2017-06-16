@@ -5,6 +5,7 @@ import android.app.Application;
 import com.belichenko.a.news.di.AppComponent;
 import com.belichenko.a.news.di.AppModule;
 import com.belichenko.a.news.di.DaggerAppComponent;
+import com.facebook.stetho.Stetho;
 
 import timber.log.Timber;
 
@@ -30,6 +31,7 @@ public class NewsApplication extends Application {
                 .build();
 
         if (BuildConfig.DEBUG) {
+            Stetho.initializeWithDefaults(this);
             Timber.plant(new Timber.DebugTree() {
                 @Override
                 protected String createStackElementTag(StackTraceElement element) {

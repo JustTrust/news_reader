@@ -8,5 +8,5 @@ import android.arch.lifecycle.LifecycleActivity;
  */
 
 public class BaseActivity extends LifecycleActivity {
-    // TODO: 15.06.2017 BaseActivity for further development
+    // TODO: 15.06.2017 BaseActivity for further development, it is empty now
 }
