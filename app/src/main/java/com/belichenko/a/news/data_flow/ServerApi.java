@@ -23,6 +23,6 @@ public class ServerApi implements Server {
 
     @Override
     public Single<List<News>> getNews() {
-        return newsGenerator.getListOfNewsFromServer();
+        return newsGenerator.getListOfNewsFromServerWithDelay();
     }
 }

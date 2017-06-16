@@ -10,6 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
+        android:transitionName="news_header"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1"
         tools:text="Title 101" />
 

@@ -5,6 +5,7 @@ import android.app.Application;
 import com.belichenko.a.news.di.AppComponent;
 import com.belichenko.a.news.di.AppModule;
 import com.belichenko.a.news.di.DaggerAppComponent;
+import com.belichenko.a.news.utils.NetworkWatcher;
 import com.facebook.stetho.Stetho;
 
 import timber.log.Timber;
@@ -29,6 +30,7 @@ public class NewsApplication extends Application {
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
                 .build();
+        new NetworkWatcher();
 
         if (BuildConfig.DEBUG) {
             Stetho.initializeWithDefaults(this);

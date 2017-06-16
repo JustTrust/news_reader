@@ -44,6 +44,6 @@ public class NewsGenerator {
 
     public Single<List<News>> getListOfNewsFromServerWithDelay(){
         Single<List<News>> data =  getListOfNewsFromServer();
-        return Single.zip(data, Single.timer(1, TimeUnit.SECONDS), (news, aLong) -> news);
+        return Single.zip(data, Single.timer(5, TimeUnit.SECONDS), (news, aLong) -> news);
     }
 }

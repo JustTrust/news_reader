@@ -6,9 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.belichenko.a.news.R;
 import com.belichenko.a.news.models.LocalNews;
 
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by a.belichenko on 16.06.2017.
@@ -28,14 +32,14 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         return new ViewHolder(LayoutInflater.from(
-                viewGroup.getContext()).inflate(android.R.layout.simple_list_item_1, viewGroup, false));
+                viewGroup.getContext()).inflate(R.layout.list_item, viewGroup, false));
     }
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         viewHolder.title.setText(list.get(i).getTitle());
         viewHolder.itemView.setOnClickListener(v -> {
-            if (listener != null) listener.onItemClick(list.get(i).getId());
+            if (listener != null) listener.onItemClick(list.get(i).getId(), viewHolder.itemView);
         });
     }
 
@@ -45,15 +49,17 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.item_text)
         TextView title;
 
         ViewHolder(View view) {
             super(view);
-            title = (TextView) view.findViewById(android.R.id.text1);
+            ButterKnife.bind(this, view);
         }
     }
 
-    public interface OnItemClickListener{
-        void onItemClick(int itemId);
+    public interface OnItemClickListener {
+        void onItemClick(int itemId, View view);
     }
+
 }

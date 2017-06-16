@@ -3,8 +3,10 @@ package com.belichenko.a.news.ui;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Toast;
 
 import com.belichenko.a.news.R;
@@ -37,7 +39,7 @@ public class ListActivity extends BaseActivity {
         setContentView(R.layout.list_activity);
         ButterKnife.bind(this);
 
-        newsList.setAdapter(new NewsAdapter(localNews, id -> goToDetailView(id)));
+        newsList.setAdapter(new NewsAdapter(localNews, (itemId, view) -> goToDetailView(itemId, view)));
 
         ListViewModel model = ViewModelProviders.of(this).get(ListViewModel.class);
         model.getNewsList().observe(this, news -> {
@@ -53,8 +55,10 @@ public class ListActivity extends BaseActivity {
 
     }
 
-    private void goToDetailView(int newsId) {
+    private void goToDetailView(int newsId, View view) {
         Timber.d("List item was chosen " + newsId);
-        DetailActivity.start(this, newsId);
+        ActivityOptionsCompat options = ActivityOptionsCompat.
+                makeSceneTransitionAnimation(this, view, "news_header");
+        DetailActivity.start(this, newsId, options);
     }
 }

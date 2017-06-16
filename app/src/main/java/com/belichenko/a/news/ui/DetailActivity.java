@@ -3,8 +3,10 @@ package com.belichenko.a.news.ui;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.text.TextUtils;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,8 +35,13 @@ public class DetailActivity extends BaseActivity {
     @BindView(R.id.detail_id)
     TextView detailId;
 
-    public static void start(Context context, int newsId) {
-        context.startActivity(new Intent(context, DetailActivity.class).putExtra(NEWS_ID, newsId));
+    public static void start(Context context, int newsId, ActivityOptionsCompat options) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            context.startActivity(new Intent(context, DetailActivity.class).putExtra(NEWS_ID, newsId),
+                    options.toBundle());
+        } else {
+            context.startActivity(new Intent(context, DetailActivity.class).putExtra(NEWS_ID, newsId));
+        }
     }
 
     @Override
