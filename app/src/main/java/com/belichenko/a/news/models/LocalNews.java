@@ -46,8 +46,6 @@ public class LocalNews {
                 this.content = new String(news.getContent(), "UTF-8");
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
-            } finally {
-                this.content = "…";
             }
         }
     }

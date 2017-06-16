@@ -55,6 +55,6 @@ public class ListActivity extends BaseActivity {
 
     private void goToDetailView(int newsId) {
         Timber.d("List item was chosen " + newsId);
-
+        DetailActivity.start(this, newsId);
     }
 }

@@ -39,6 +39,11 @@ public class NewsDataManager implements DataManager {
         return database.newsDao().getNewsList();
     }
 
+    @Override
+    public Flowable<LocalNews> loadOneNews(int newsId) {
+        return database.newsDao().getOneNews(newsId);
+    }
+
     private void updateNews(List<LocalNews> localNews) {
         Timber.d("Load news from sever = " + localNews.size());
         database.newsDao().insertNews(localNews.toArray(new LocalNews[]{}));

@@ -16,4 +16,6 @@ public interface DataManager {
     void getNewsFromServer();
 
     Flowable<List<LocalNews>> loadNewsList();
+
+    Flowable<LocalNews> loadOneNews(int newsId);
 }

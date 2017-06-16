@@ -1,5 +1,6 @@
 package com.belichenko.a.news.di;
 
+import com.belichenko.a.news.ui.view_models.ItemViewModel;
 import com.belichenko.a.news.ui.view_models.ListViewModel;
 
 import javax.inject.Singleton;
@@ -15,4 +16,5 @@ import dagger.Component;
 @Component(modules = AppModule.class)
 public interface AppComponent {
     void inject(ListViewModel listViewModel);
+    void inject(ItemViewModel itemViewModel);
 }
